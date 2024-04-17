@@ -2,17 +2,13 @@
 
 namespace App\Services;
 
+use App\Interfaces\Tax;
 use App\Models\Budget;
 
 class TaxCalculator
 {
-    public function calc(Budget $budget, string $tax_name) : float
+    public function calc(Budget $budget, Tax $tax) : float
     {
-        switch ($tax_name) {
-            case 'ICMS':
-                return $budget->value * 0.1;
-            case 'ISS':
-                return $budget->value * 0.06;
-        }
+        return $tax->calc($budget);
     }
 }
