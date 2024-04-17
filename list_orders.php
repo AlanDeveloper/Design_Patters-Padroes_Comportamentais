@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Budget;
+use App\Services\ListBudgets;
+use App\Services\ListOrders;
 
 require_once 'vendor/autoload.php';
 
@@ -25,14 +27,13 @@ $budget4 = new Budget();
 $budget4->value = 230.75;
 $budget4->items_quantity = 2;
 
-$list = [
-    $budget1,
-    $budget2,
-    $budget3,
-    $budget4
-];
+$list = new ListBudgets;
+$list->add($budget1);
+$list->add($budget2);
+$list->add($budget3);
+$list->add($budget4);
 
-foreach ($list as $budget) {
+foreach ($list->getIterator() as $budget) {
     echo 'Valor: ' . $budget->value . PHP_EOL;
     echo 'Quantidade: ' . $budget->items_quantity . PHP_EOL;
     echo 'Estado: ' . get_class($budget->state) . PHP_EOL;
