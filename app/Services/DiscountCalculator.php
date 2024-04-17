@@ -3,18 +3,20 @@
 namespace App\Services;
 
 use App\Models\Budget;
+use App\Services\DiscountTypes\FiveHundredValue;
+use App\Services\DiscountTypes\FiveItems;
+use App\Services\DiscountTypes\NoDiscount;
 
 class DiscountCalculator
 {
     public function calc(Budget $budget) : float
     {
-        if ($budget->items_quantity > 5) {
-            return $budget->value * 0.1;
-        }
-        
-        if ($budget->value > 500) {
-            return $budget->value * 0.05;
-        }
-        return 0;
+        $queue = new FiveHundredValue(
+            new FiveItems(
+                new NoDiscount()
+            )
+        );
+
+        return $queue->calc($budget);
     }
 }

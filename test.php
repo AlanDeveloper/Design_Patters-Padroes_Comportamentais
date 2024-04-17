@@ -17,7 +17,7 @@ require 'vendor/autoload.php';
 $calculator = new DiscountCalculator();
 
 $budget = new Budget();
-$budget->value = 200;
-$budget->items_quantity = 7;
+$budget->value = 700;
+$budget->items_quantity = 5;
 
 echo $calculator->calc($budget);
