@@ -2,15 +2,25 @@
 
 namespace App\Commands;
 
+use App\Actions\GenerateOrderByBanco;
+use App\Actions\GenerateOrderByMail;
+use App\Interfaces\Action;
 use App\Models\Budget;
 use App\Models\Order;
 use DateTimeImmutable;
 
 class GenerateOrderHandler
 {
+    private array $actions = [];
+
     public function __construct(/**OrderRepository */)
     {
         //
+    }
+
+    public function add_action(Action $action)
+    {
+        $this->actions[] = $action;
     }
 
     public function execute(GenerateOrder $generate_order) : void
@@ -24,7 +34,8 @@ class GenerateOrderHandler
         $order->client_name = $generate_order->getClientName();
         $order->budget = $budget;
 
-        echo 'Cria pedido no banco de dados ' . PHP_EOL;
-        echo 'Envia email para o cliente ' . PHP_EOL;
+        foreach ($this->actions as $action) {
+            $action->execute($order);
+        }
     }
 }
