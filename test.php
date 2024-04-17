@@ -1,7 +1,7 @@
 <?php
 
-use App\Budget;
-use App\TaxCalculator;
+use App\Models\Budget;
+use App\Services\TaxCalculator;
 
 require 'vendor/autoload.php';
 
