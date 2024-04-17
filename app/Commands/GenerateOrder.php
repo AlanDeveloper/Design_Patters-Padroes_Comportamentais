@@ -23,18 +23,18 @@ class GenerateOrder
         $this->client_name = $client_name;
     }
 
-    public function execute()
+    public function getValue() : float
     {
-        $budget = new Budget();
-        $budget->value = $this->value;
-        $budget->items_quantity = $this->items_quantity;
+        return $this->value;
+    }
 
-        $order = new Order();
-        $order->date_finished = new DateTimeImmutable();
-        $order->client_name = $this->client_name;
-        $order->budget = $budget;
+    public function getItemsQuantity() : int
+    {
+        return $this->items_quantity;
+    }
 
-        echo 'Cria pedido no banco de dados ' . PHP_EOL;
-        echo 'Envia email para o cliente ' . PHP_EOL;
+    public function getClientName() : string
+    {
+        return $this->client_name;
     }
 }
